@@ -4,7 +4,7 @@
 char** mapa;
 int linhasMapa, colunasMapa;
 
-void liberarMemoriaMapa() {
+void liberarMemoriaMapa () {
     // Liberar memória matriz mapa
     for (int i = 0; i < linhasMapa; i++) {
         free(mapa[i]);
@@ -12,7 +12,7 @@ void liberarMemoriaMapa() {
     free(mapa);
 }
 
-void alocarMemoriaMapa() {
+void alocarMemoriaMapa () {
     // Declaração dinâmica da matriz mapa
     mapa = malloc(sizeof(char*) * linhasMapa);
     for (int i = 0; i < linhasMapa; i++) {
@@ -20,7 +20,7 @@ void alocarMemoriaMapa() {
     }
 }
 
-void lerMapa() {
+void lerMapa () {
     FILE* arqMapa;
     arqMapa = fopen("mapa.txt", "r");
     if (arqMapa == 0) {
@@ -38,12 +38,60 @@ void lerMapa() {
     fclose(arqMapa);
 }
 
+void imprimirMapa () {
+    for (int i = 0; i < 5; i++) {
+        printf ("%s\n", mapa[i]);
+    }
+}
+
+int acabou () {
+    return 0;
+}
+
+void move (char direcao) {
+    int x;
+    int y;
+
+    // acha a posicao do personagem
+    for (int i = 0; i < linhasMapa; i++) {
+        for (int j = 0; j < colunasMapa; j++) {
+            if (mapa[i][j] == '@') {
+                x = i;
+                y = j;
+                break;
+            }
+        }
+    }
+
+    switch (direcao) {
+        case 'a':
+            mapa[x][y-1] = '@';
+            break;
+        case 'w':
+            mapa[x-1][y] = '@';
+            break;
+        case 's':
+            mapa[x+1][y] = '@';
+            break;
+        case 'd':
+            mapa[x][y+1] = '@';
+            break;
+    }
+
+    mapa[x][y] = '.';
+}
+
 int main () {
     lerMapa();
 
-    for (int i = 0; i < 5; i++) { // Impressão mapa
-        printf ("%s\n", mapa[i]);
-    }
+    do
+    {
+        imprimirMapa();
+
+        char comando;
+        scanf(" %c", &comando);
+        move(comando);
+    } while (!acabou());
 
     liberarMemoriaMapa();
 }
