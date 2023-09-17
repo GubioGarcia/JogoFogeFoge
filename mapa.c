@@ -1,5 +1,21 @@
 #include "mapa.h"
 
+void andarNoMapa (MAPA* map, int xOrigem, int yOrigem, int xDestino, int yDestino) {
+    char personagem = map->matriz[xOrigem][yOrigem];
+    map->matriz[xDestino][yDestino] = personagem;
+    map->matriz[xOrigem][yOrigem] = '.';
+}
+
+int eValida (MAPA* map, int x, int y) {
+    if (x >= map->linhas) return 0;
+    if (y >= map->colunas) return 0;
+    return 1;
+}
+
+int eVazia(MAPA* map, int x, int y) {
+    return map->matriz[x][y] == '.';
+}
+
 void encontrarMapa (MAPA* map, POSICAO* pos, char c) {
     for (int i = 0; i < map->linhas; i++) {
         for (int j = 0; j < map->colunas; j++) {

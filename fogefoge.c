@@ -7,42 +7,49 @@ int acabou () {
     return 0;
 }
 
-void move (char direcao) {
-    if (direcao != 'a' && direcao != 'w' && direcao != 's' && direcao != 'd') return;
+int validarDirecao (char direcao) {
+    return direcao == 'a' || direcao == 'w' || direcao == 's' || direcao == 'd';
+}
 
-    map.matriz[posHeroi.x][posHeroi.y] = '.';
+void moverHeroi (char direcao) {
+    if (!validarDirecao(direcao)) return;
+
+    int proximoX = posHeroi.x;
+    int proximoY = posHeroi.y;
 
     switch (direcao) {
-        case 'a':
-            map.matriz[posHeroi.x][posHeroi.y-1] = '@';
-            posHeroi.y--;
+        case ESQUERDA:
+            proximoY--;
             break;
-        case 'w':
-            map.matriz[posHeroi.x-1][posHeroi.y] = '@';
-            posHeroi.x--;
+        case CIMA:
+            proximoX--;
             break;
-        case 's':
-            map.matriz[posHeroi.x+1][posHeroi.y] = '@';
-            posHeroi.x++;
+        case BAIXO:
+            proximoX++;
             break;
-        case 'd':
-            map.matriz[posHeroi.x][posHeroi.y+1] = '@';
-            posHeroi.y++;
+        case DIREITA:
+            proximoY++;
             break;
     }
+
+    if (!eValida(&map, proximoX, proximoY)) return;
+    if (!eVazia(&map, proximoX, proximoY)) return;
+    
+    andarNoMapa(&map, posHeroi.x, posHeroi.y, proximoX, proximoY);
+    posHeroi.x = proximoX;
+    posHeroi.y = proximoY;
 }
 
 int main () {
     lerMapa(&map);
     encontrarMapa (&map, &posHeroi, '@');
 
-    do
-    {
+    do {
         imprimirMapa(&map);
 
         char comando;
         scanf(" %c", &comando);
-        move(comando);
+        moverHeroi(comando);
     } while (!acabou());
 
     liberarMemoriaMapa(&map);

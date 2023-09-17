@@ -2,5 +2,11 @@
 #include <stdlib.h>
 #include "mapa.h"
 
+#define CIMA 'w'
+#define BAIXO 's'
+#define ESQUERDA 'a'
+#define DIREITA 'd'
+
 int acabou();
-void move(char direcao);
+int validarDirecao (char direcao);
+void moverHeroi(char direcao);
