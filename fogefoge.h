@@ -7,9 +7,12 @@
 #define BAIXO 's'
 #define ESQUERDA 'a'
 #define DIREITA 'd'
+#define BOMBA 'b'
 
 int acabou();
 int validarDirecao(char direcao);
 void moverHeroi(char direcao);
 void moverFantasmas();
-int direcaoFantasma (int xAtual, int yAtual, int* xDestino, int* yDestino);
+int direcaoFantasma(int xAtual, int yAtual, int* xDestino, int* yDestino);
+void explodirPilula(int x, int y, int somaX, int somaY, int qtd);
+void explodirPilulaRecursivo ();

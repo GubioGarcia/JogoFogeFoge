@@ -12,20 +12,35 @@ int eValida (MAPA* map, int x, int y) {
     return 1;
 }
 
-int eVazia(MAPA* map, int x, int y) {
+int eVazia (MAPA* map, int x, int y) {
     return map->matriz[x][y] == VAZIO;
 }
 
-void encontrarMapa (MAPA* map, POSICAO* pos, char c) {
+int eParede (MAPA* map, int x, int y) {
+    return map->matriz[x][y] == PAREDE_VERTICAL || map->matriz[x][y] == PAREDE_ORIZONTAL;
+}
+
+int ePersonagem (MAPA* map, char personagem, int x, int y) {
+    return map->matriz[x][y] == personagem;
+}
+
+int podeAndar (MAPA* map, char personagem, int x, int y) {
+    return eValida(map, x, y) &&
+    !eParede(map, x, y) &&
+    !ePersonagem(map, personagem, x, y);
+}
+
+int encontrarMapa (MAPA* map, POSICAO* pos, char c) {
     for (int i = 0; i < map->linhas; i++) {
         for (int j = 0; j < map->colunas; j++) {
             if (map->matriz[i][j] == c) {
                 pos->x = i;
                 pos->y = j;
-                break;
+                return 1;
             }
         }
     }
+    return 0;
 }
 
 void liberarMemoriaMapa (MAPA* map) {
@@ -56,14 +71,14 @@ void lerMapa (MAPA* map) {
 
     alocarMemoriaMapa(map);
 
-    for (int i = 0; i < 5; i++) { // leitura do mapa
+    for (int i = 0; i < 10; i++) { // leitura do mapa
         fscanf (arqMapa, "%s", map->matriz[i]);
     }
     fclose(arqMapa);
 }
 
 void imprimirMapa (MAPA* map) {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
         printf ("%s\n", map->matriz[i]);
     }
 }
