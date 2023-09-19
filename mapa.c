@@ -3,7 +3,7 @@
 void andarNoMapa (MAPA* map, int xOrigem, int yOrigem, int xDestino, int yDestino) {
     char personagem = map->matriz[xOrigem][yOrigem];
     map->matriz[xDestino][yDestino] = personagem;
-    map->matriz[xOrigem][yOrigem] = '.';
+    map->matriz[xOrigem][yOrigem] = VAZIO;
 }
 
 int eValida (MAPA* map, int x, int y) {
@@ -13,7 +13,7 @@ int eValida (MAPA* map, int x, int y) {
 }
 
 int eVazia(MAPA* map, int x, int y) {
-    return map->matriz[x][y] == '.';
+    return map->matriz[x][y] == VAZIO;
 }
 
 void encontrarMapa (MAPA* map, POSICAO* pos, char c) {
@@ -65,5 +65,15 @@ void lerMapa (MAPA* map) {
 void imprimirMapa (MAPA* map) {
     for (int i = 0; i < 5; i++) {
         printf ("%s\n", map->matriz[i]);
+    }
+}
+
+void copiarMapa (MAPA* destino, MAPA* origem) {
+    destino->linhas = origem->linhas;
+    destino->colunas = origem->colunas;
+
+    alocarMemoriaMapa(destino);
+    for (int i = 0; i < origem->linhas; i++) {
+        strcpy(destino->matriz[i], origem->matriz[i]);
     }
 }

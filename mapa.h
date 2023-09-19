@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define HEROI '@'
+#define FANTASMA 'F'
 #define VAZIO '.'
 
 struct mapa {
@@ -21,6 +23,7 @@ void lerMapa (MAPA* map);
 void imprimirMapa (MAPA* map);
 void alocarMemoriaMapa (MAPA* map);
 void liberarMemoriaMapa (MAPA* map);
+void copiarMapa (MAPA* destino, MAPA* origem);
 void encontrarMapa (MAPA* map, POSICAO* pos, char c);
 
 int eVazia (MAPA* map, int x, int y);
