@@ -8,8 +8,7 @@
 #define HEROI '@'
 #define FANTASMA 'F'
 #define VAZIO '.'
-#define PAREDE_VERTICAL '|' 
-#define PAREDE_ORIZONTAL '-'
+#define PAREDE '|'
 #define PILULA '*'
 
 struct mapa {
@@ -26,7 +25,6 @@ struct posicao {
 typedef struct posicao POSICAO;
 
 void lerMapa (MAPA* map);
-void imprimirMapa (MAPA* map);
 void alocarMemoriaMapa (MAPA* map);
 void liberarMemoriaMapa (MAPA* map);
 void copiarMapa (MAPA* destino, MAPA* origem);

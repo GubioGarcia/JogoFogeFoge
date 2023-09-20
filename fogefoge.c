@@ -109,7 +109,43 @@ void explodirPilula (int x, int y, int somaX, int somaY, int qtd) {
     explodirPilula(novoX, novoY, somaX, somaY, qtd-1);
 }
 
+int menuIniciar() {
+    int comando;
+    
+    while (1) {
+        printf("\n**BEM VINDO AO FOGE-FOGE**\n");
+        printf("\nMENU INICIAR: \n");
+        printf("Digite: '0' para INSTRUCOES ou '1' para INICIAR: \n");        
+        scanf(" %d", &comando);
+
+        if (comando == 0) { // INSTRUCOES DE JOGABILIDADE
+            printf("\nINSTRUCOES DE JOGABILIDADE\n");
+            printf("Bem-vindo ao Foge-Foge! Neste jogo, voce controlara um heroi que deve evitar fantasmas enquanto coleta pilulas no mapa.\n");
+            printf("\nControles:\n");
+            printf("Use as teclas wasd para mover o heroi pelo mapa.\n");
+            printf("w: Mover para cima\na: Mover para a esquerda\ns: Mover para baixo\nd: Mover para a direita\n");
+            printf("\nPressione a tecla 'b' para fazer o heroi explodir as pilulas que coletou. Isso eliminara fantasmas que estiverem ate tres casas proximo de seu heroi nas quatro direcoes.\n");
+            printf("Sobreviva o quanto puder. Colete pilulas e exploda fantasmas para marcar pontos\n");
+            printf("Digite '0' para retornar ao MENU: ");
+
+            int auxMenu;
+            scanf(" %d", &auxMenu);
+            while (auxMenu) {
+                printf("Digite '0' para retornar ao MENU: ");
+                scanf(" %d", &auxMenu);
+            }
+            
+            continue; // Volta para o MENU
+        } else if (comando == 1) { // INICIAR JOGO
+            return 1;
+        }
+    }
+}
+
+
 int main () {
+    if (!menuIniciar()) return 0;
+
     lerMapa(&map);
     encontrarMapa (&map, &posHeroi, HEROI);
 
@@ -119,10 +155,9 @@ int main () {
 
         char comando;
         scanf(" %c", &comando);
-        moverHeroi(comando);
 
         if (comando == BOMBA) explodirPilulaRecursivo();     
-
+        moverHeroi(comando);
         moverFantasmas();
     } while (!acabou());
 

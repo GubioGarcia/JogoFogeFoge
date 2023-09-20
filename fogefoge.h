@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "mapa.h"
+#include "ui.h"
 
 #define CIMA 'w'
 #define BAIXO 's'

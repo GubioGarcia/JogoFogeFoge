@@ -17,7 +17,7 @@ int eVazia (MAPA* map, int x, int y) {
 }
 
 int eParede (MAPA* map, int x, int y) {
-    return map->matriz[x][y] == PAREDE_VERTICAL || map->matriz[x][y] == PAREDE_ORIZONTAL;
+    return map->matriz[x][y] == PAREDE;
 }
 
 int ePersonagem (MAPA* map, char personagem, int x, int y) {
@@ -75,12 +75,6 @@ void lerMapa (MAPA* map) {
         fscanf (arqMapa, "%s", map->matriz[i]);
     }
     fclose(arqMapa);
-}
-
-void imprimirMapa (MAPA* map) {
-    for (int i = 0; i < map->linhas; i++) {
-        printf ("%s\n", map->matriz[i]);
-    }
 }
 
 void copiarMapa (MAPA* destino, MAPA* origem) {
