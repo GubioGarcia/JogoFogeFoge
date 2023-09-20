@@ -1,3 +1,6 @@
+#ifndef MAPA_H
+#define MAPA_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,3 +38,5 @@ int eParede (MAPA* map, int x, int y);
 int ePersonagem (MAPA* map, char personagem, int x, int y);
 int podeAndar (MAPA* map, char personagem, int x, int y);
 void andarNoMapa (MAPA* map, int xOrigem, int yOrigem, int xDestino, int yDestino);
+
+#endif

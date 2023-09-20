@@ -1,3 +1,6 @@
+#ifndef FOGEFOGE_H
+#define FOGEFOGE_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -16,3 +19,5 @@ void moverFantasmas();
 int direcaoFantasma(int xAtual, int yAtual, int* xDestino, int* yDestino);
 void explodirPilula(int x, int y, int somaX, int somaY, int qtd);
 void explodirPilulaRecursivo ();
+
+#endif

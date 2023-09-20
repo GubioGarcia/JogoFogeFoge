@@ -114,7 +114,7 @@ int main () {
     encontrarMapa (&map, &posHeroi, HEROI);
 
     do {
-        printf("Pilulas: %s\n", (pilulasHeroi ? "SIM" : "NAO"));
+        printf("\nPilulas: %s\n", (pilulasHeroi ? "SIM" : "NAO"));
         imprimirMapa(&map);
 
         char comando;

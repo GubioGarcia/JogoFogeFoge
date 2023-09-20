@@ -71,14 +71,14 @@ void lerMapa (MAPA* map) {
 
     alocarMemoriaMapa(map);
 
-    for (int i = 0; i < 10; i++) { // leitura do mapa
+    for (int i = 0; i < map->linhas; i++) { // leitura do mapa
         fscanf (arqMapa, "%s", map->matriz[i]);
     }
     fclose(arqMapa);
 }
 
 void imprimirMapa (MAPA* map) {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < map->linhas; i++) {
         printf ("%s\n", map->matriz[i]);
     }
 }
