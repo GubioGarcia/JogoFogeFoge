@@ -111,12 +111,21 @@ void explodirPilula (int x, int y, int somaX, int somaY, int qtd) {
 
 int menuIniciar() {
     int comando;
-    
-    while (1) {
+
+    while (1) { // Loop externo para manter o menu ativo
         printf("\n**BEM VINDO AO FOGE-FOGE**\n");
         printf("\nMENU INICIAR: \n");
-        printf("Digite: '0' para INSTRUCOES ou '1' para INICIAR: \n");        
-        scanf(" %d", &comando);
+        printf("Digite: '0' para INSTRUCOES ou '1' para INICIAR: \n");
+        
+        int scanfResult = scanf(" %d", &comando);
+
+        // Verifica se a entrada foi um número inteiro válido
+        if (scanfResult != 1) {
+            printf("Entrada inválida. Digite apenas '0' para INSTRUCOES ou '1' para INICIAR.\n");
+            // Limpa o buffer de entrada
+            while (getchar() != '\n');
+            continue;
+        }
 
         if (comando == 0) { // INSTRUCOES DE JOGABILIDADE
             printf("\nINSTRUCOES DE JOGABILIDADE\n");
@@ -126,22 +135,31 @@ int menuIniciar() {
             printf("w: Mover para cima\na: Mover para a esquerda\ns: Mover para baixo\nd: Mover para a direita\n");
             printf("\nPressione a tecla 'b' para fazer o heroi explodir as pilulas que coletou. Isso eliminara fantasmas que estiverem ate tres casas proximo de seu heroi nas quatro direcoes.\n");
             printf("Sobreviva o quanto puder. Colete pilulas e exploda fantasmas para marcar pontos\n");
-            printf("Digite '0' para retornar ao MENU: ");
 
-            int auxMenu;
-            scanf(" %d", &auxMenu);
-            while (auxMenu) {
-                printf("Digite '0' para retornar ao MENU: ");
-                scanf(" %d", &auxMenu);
+            int auxMenu = -1;
+            while (auxMenu != 0 && auxMenu != 1) {
+                printf("Digite '0' para retornar ao MENU e '1' para INICIAR: ");
+                int scanfResult = scanf(" %d", &auxMenu);
+
+                // Verifica se a entrada foi um número inteiro válido
+                if (scanfResult != 1) {
+                    printf("Entrada inválida. Digite apenas '0' para retornar ao MENU ou '1' para INICIAR.\n");
+                    while (getchar() != '\n'); // Limpa o buffer de entrada
+                    continue;
+                }
             }
             
-            continue; // Volta para o MENU
+            if (auxMenu == 0) continue; // Volta para o MENU
+            else if (auxMenu == 1) return 1; // INICIAR JOGO
+
         } else if (comando == 1) { // INICIAR JOGO
             return 1;
+        } else {
+            printf("OPCAO INVALIDA. Digite '0' para INSTRUCOES ou '1' para INICIAR.\n");
+            while (getchar() != '\n'); // Limpa o buffer de entrada
         }
     }
 }
-
 
 int main () {
     if (!menuIniciar()) return 0;
