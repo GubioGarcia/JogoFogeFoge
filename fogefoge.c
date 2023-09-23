@@ -4,13 +4,13 @@ MAPA map;
 POSICAO posHeroi;
 int pilulasHeroi = 0;
 
-int acabou () {
+int acabou () { // Verificar fim do jogo
     POSICAO pos;
     int encontrarHeroi = encontrarMapa(&map, &pos, HEROI);
     return !encontrarHeroi;
 }
 
-int validarDirecao (char direcao) {
+int validarDirecao (char direcao) { // Validar direção de entrada do usuário
     return direcao == ESQUERDA || direcao == CIMA || direcao == BAIXO || direcao == DIREITA;
 }
 
@@ -37,7 +37,7 @@ void moverHeroi (char direcao) {
 
     if (!podeAndar(&map, HEROI, proximoX, proximoY)) return;
     
-    if (ePersonagem(&map, PILULA, proximoX, proximoY)) pilulasHeroi = 1;
+    if (ePersonagem(&map, PILULA, proximoX, proximoY)) pilulasHeroi++;
 
     andarNoMapa(&map, posHeroi.x, posHeroi.y, proximoX, proximoY);
     posHeroi.x = proximoX;
@@ -63,7 +63,7 @@ void moverFantasmas () {
     liberarMemoriaMapa(&mapCopia);
 }
 
-int direcaoFantasma (int xAtual, int yAtual, int* xDestino, int* yDestino) {
+int direcaoFantasma (int xAtual, int yAtual, int* xDestino, int* yDestino) { // Movimentar fantasmas randomicamente
     int opcoes[4][2] = {
         { xAtual, yAtual+1},
         { xAtual+1, yAtual},
@@ -143,7 +143,7 @@ int menuIniciar() {
 
                 // Verifica se a entrada foi um número inteiro válido
                 if (scanfResult != 1) {
-                    printf("Entrada inválida. Digite apenas '0' para retornar ao MENU ou '1' para INICIAR.\n");
+                    printf("OPCAO INVALIDA. Digite '0' para retornar ao MENU ou '1' para INICIAR: ");
                     while (getchar() != '\n'); // Limpa o buffer de entrada
                     continue;
                 }
@@ -155,7 +155,7 @@ int menuIniciar() {
         } else if (comando == 1) { // INICIAR JOGO
             return 1;
         } else {
-            printf("OPCAO INVALIDA. Digite '0' para INSTRUCOES ou '1' para INICIAR.\n");
+            printf("OPCAO INVALIDA. Digite '0' para INSTRUCOES ou '1' para INICIAR: ");
             while (getchar() != '\n'); // Limpa o buffer de entrada
         }
     }
@@ -175,7 +175,7 @@ int main () {
         scanf(" %c", &comando);
 
         if (comando == BOMBA) explodirPilulaRecursivo();     
-        moverHeroi(comando);
+        else moverHeroi(comando);
         moverFantasmas();
     } while (!acabou());
 
