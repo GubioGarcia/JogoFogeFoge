@@ -106,7 +106,7 @@ void explodirPilula (int x, int y, int somaX, int somaY, int qtd) {
     if (eParede(&map, novoX, novoY)) return;
 
     map.matriz[novoX][novoY] = VAZIO;
-    explodirPilula(novoX, novoY, somaX, somaY, qtd-1);
+    explodirPilula(novoX, novoY, somaX, somaY, qtd--);
 }
 
 int menuIniciar() {
@@ -172,11 +172,13 @@ int main () {
         imprimirMapa(&map);
 
         char comando;
-        scanf(" %c", &comando);
+        comando = getch(); // APENAS NO WINDOWNS - inibe necessidade do 'ENTER' após a entrada do comando
+        //scanf(" %c", &comando);
 
-        if (comando == BOMBA) explodirPilulaRecursivo();     
+        if (comando == BOMBA) explodirPilulaRecursivo();
         else moverHeroi(comando);
         moverFantasmas();
+        
     } while (!acabou());
 
     liberarMemoriaMapa(&map);

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <conio.h> //getch
 #include "mapa.h"
 #include "ui.h"
 
