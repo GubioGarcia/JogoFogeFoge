@@ -85,13 +85,20 @@ int direcaoFantasma (int xAtual, int yAtual, int* xDestino, int* yDestino) { // 
     return 0;
 }
 
-void explodirPilulaRecursivo () {
-    if (!pilulasHeroi) return;    
+void explodirPilulaRecursivo() {
+    if (!pilulasHeroi) return;
 
-    explodirPilula(posHeroi.x, posHeroi.y, 0, 1, 3); //explodir para direita
-    explodirPilula(posHeroi.x, posHeroi.y, 0, -1, 3);//explodir para esquerda
-    explodirPilula(posHeroi.x, posHeroi.y, 1, 0, 3); //explodir para cima
-    explodirPilula(posHeroi.x, posHeroi.y, -1, 0, 3); //explodir para baixo
+    // Explodir nas quatro direções principais
+    explodirPilula(posHeroi.x, posHeroi.y, 0, 1, 2); // Explodir para direita
+    explodirPilula(posHeroi.x, posHeroi.y, 0, -1, 2); // Explodir para esquerda
+    explodirPilula(posHeroi.x, posHeroi.y, 1, 0, 2); // Explodir para cima
+    explodirPilula(posHeroi.x, posHeroi.y, -1, 0, 2); // Explodir para baixo
+
+    // Explodir nas quatro direções diagonais
+    explodirPilula(posHeroi.x, posHeroi.y, -1, -1, 2); // Explodir para cima e para a esquerda
+    explodirPilula(posHeroi.x, posHeroi.y, -1, 1, 2); // Explodir para cima e para a direita
+    explodirPilula(posHeroi.x, posHeroi.y, 1, -1, 2); // Explodir para baixo e para a esquerda
+    explodirPilula(posHeroi.x, posHeroi.y, 1, 1, 2); // Explodir para baixo e para a direita
 
     pilulasHeroi = 0;
 }
@@ -133,8 +140,8 @@ int menuIniciar() {
             printf("\nControles:\n");
             printf("Use as teclas wasd para mover o heroi pelo mapa.\n");
             printf("w: Mover para cima\na: Mover para a esquerda\ns: Mover para baixo\nd: Mover para a direita\n");
-            printf("\nPressione a tecla 'b' para fazer o heroi explodir as pilulas que coletou. Isso eliminara fantasmas que estiverem ate tres casas proximo de seu heroi nas quatro direcoes.\n");
-            printf("Sobreviva o quanto puder. Colete pilulas e exploda fantasmas para marcar pontos\n");
+            printf("\nPressione a tecla 'b' para fazer o heroi explodir as pilulas que coletou. Isso eliminara fantasmas que estiverem ate duas casas proximas de seu heroi nas oito direcoes possiveis.\n");
+            printf("Sobreviva o quanto puder. Colete pilulas e exploda fantasmas para marcar pontos\n\n");
 
             int auxMenu = -1;
             while (auxMenu != 0 && auxMenu != 1) {
@@ -169,6 +176,7 @@ int main () {
 
     do {
         printf("\nPilulas: %s\n", (pilulasHeroi ? "SIM" : "NAO"));
+        system("cls || clear"); // Limpa a tela
         imprimirMapa(&map);
 
         char comando;
@@ -181,5 +189,6 @@ int main () {
         
     } while (!acabou());
 
+    imprimirMapa(&map);
     liberarMemoriaMapa(&map);
 }
